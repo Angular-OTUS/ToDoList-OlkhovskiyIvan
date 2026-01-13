@@ -1,0 +1,73 @@
+
+.app-main {
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+    bottom: 3rem;
+    right: 3rem;
+    display: flex;
+}
+
+.app-gradient-border {
+    color: #FFF;
+    background: #dee8ef;
+    background-clip: padding-box;
+    border: solid 2px transparent;
+    border-radius: 1em;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(174deg, #f7fcff, #b3c3ca);
+    box-shadow: 0px 0px 20px 0px rgb(118 145 159);
+  }
+}
+
+.app-menu {
+    margin: 0.5rem;
+    width: 3.5rem;
+    border-radius: 0.5rem;
+    background-color: #eff8fd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 0px #a0aeb9;
+}
+
+.app-menu-item img {
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.app-menu-item:hover {
+    background-color: #dfe7f1;
+}
+
+.app-menu-item {
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-top: 0.3rem;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.app-item-select {
+    border-radius: 0.4rem !important;
+    background-color: #40455b !important;
+}
+
+.app-content {
+    flex: auto;
+    margin: 0.5rem 0.5rem 0.5rem 0;
+}

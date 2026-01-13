@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+body {
+  background-image: linear-gradient(152deg, #fff 0%, #a8bdc8 50%);
+}
+
+ul,li { 
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+}
