@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ToDoList } from "./components/to-do-list/to-do-list";
-import { ConstImgValue } from './constants';
+import { ConstImgValue } from './models/constants';
 
 @Component({
   selector: 'app-root',
