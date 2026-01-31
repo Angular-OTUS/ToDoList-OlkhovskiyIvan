@@ -1,11 +1,11 @@
 <div class="tdi-list-item">
     <div class="tdi-item-img">
-        <img [src]="img.approval">
+        <img [src]="img.approval" alt="approval">
     </div>
     <div class="tdi-item-text">{{ taskName() }}</div>
     <div class="tdi-item-actions">
-        <button (click)="onClickDell()">
-            <img [src]="img.delete">
+        <button type="button" (click)="onClickDell()">
+            <img [src]="img.delete" alt="delete">
         </button>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
 import { ConstImgValue } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -13,25 +13,27 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './to-do-list.scss',
 })
 export class ToDoList {
-  public img = ConstImgValue;
-  public newTaskName = "";
-  public toDoListTask: ITaskType[] = [
+  protected img = ConstImgValue;
+  protected newTaskName: WritableSignal<string> = signal("");
+  protected toDoListTask: WritableSignal<ITaskType[]> = signal([
     {id: 1, text: "Задача 1"},
     {id: 2, text: "Задача 2"},
     {id: 3, text: "Задача 3"}
-  ];
+  ]);
 
   onDelTask(id: number) {
-      this.toDoListTask = this.toDoListTask.filter(item => item.id != id);
+      this.toDoListTask.set(this.toDoListTask().filter(item => item.id != id));
   }
 
   onClickAdd() {
-    const maxIdValue: number = Math.max(...this.toDoListTask.map(obj => obj.id));
 
-    this.toDoListTask.push({
+    const maxIdValue: number = Math.max(...this.toDoListTask().map(obj => obj.id));
+
+    this.toDoListTask.set([...this.toDoListTask(), {
       id: maxIdValue + 1,
-      text: this.newTaskName
-    }); 
-    this.newTaskName = "";
+      text: this.newTaskName()
+    }]);
+    
+    this.newTaskName.set("");
   }
 }
