@@ -1,9 +1,9 @@
 
-.tdl-list-item:hover {
+.tdi-list-item:hover {
     box-shadow: 0px 0px 3px 0px rgba(84, 116, 133, 0.5);
 }
 
-.tdl-list-item {
+.tdi-list-item {
     display: flex;
     padding: 0.2rem 1rem;
     border-radius: 0.4rem;
@@ -11,32 +11,35 @@
     align-items: center;
 }
 
-.tdl-item-text {
+.tdi-item-text {
     color: #5f6874;
     font-size: 0.9rem;
     flex: auto;
 }
 
+.tdi-item-img {
+    display: flex;
+}
 
-.tdl-item-img img {
+.tdi-item-img img {
     width: 1.2rem;
     margin-right: 0.5rem;
 }
 
-.tdl-item-actions button img{
+.tdi-item-actions button img{
     width: 1.3rem;
     height: 1.3rem;
 }
 
-.tdl-item-actions button:active {
+.tdi-item-actions button:active {
     box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5) inset !important;
 }
-.tdl-item-actions button:hover {
+.tdi-item-actions button:hover {
     box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5);
 }
 
 
-.tdl-item-actions button {
+.tdi-item-actions button {
     display: flex;
     align-items: center;
     justify-content: center;

@@ -1,10 +1,10 @@
-<div class="tdl-list-item">
-    <div class="tdl-item-img">
+<div class="tdi-list-item">
+    <div class="tdi-item-img">
         <img [src]="img.approval">
     </div>
-    <div class="tdl-item-text">Заметка</div>
-    <div class="tdl-item-actions">
-        <button>
+    <div class="tdi-item-text">{{ taskName() }}</div>
+    <div class="tdi-item-actions">
+        <button (click)="onClickDell()">
             <img [src]="img.delete">
         </button>
     </div>

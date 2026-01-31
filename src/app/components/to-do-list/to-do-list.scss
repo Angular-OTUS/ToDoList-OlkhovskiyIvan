@@ -57,11 +57,21 @@
 .tdl-content-body {
     flex: auto;
     // overflow-y: auto;
-    margin: 1rem;
+    margin: 0.7rem;
+    position: relative;
+}
+
+.tdl-body-scroll {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    // padding: 0.3rem;
 }
 
 .tdl-content ul {
     // margin: 1rem;
+    margin: 0.3rem;
 }
 
 .tdl-content li {
@@ -125,7 +135,7 @@
     height: 1.3rem;
 }
 
-.tdl-footer-actions button {
+.tdl-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -136,6 +146,15 @@
     box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5);
 }
 
-.tdl-footer-actions button:active {
+.tdl-button-add {
+    background: linear-gradient(131deg, #ffffff, #a9bdc9);
+}
+
+.tdl-button-disabled {
+    opacity: 0.5;
+}
+
+.tdl-footer-actions button:not(.tdl-button-disabled):active {
     box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5) inset !important;
+    background: none;
 }
