@@ -26,24 +26,4 @@
     margin-right: 0.5rem;
 }
 
-.tdi-item-actions button img{
-    width: 1.3rem;
-    height: 1.3rem;
-}
 
-.tdi-item-actions button:active {
-    box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5) inset !important;
-}
-.tdi-item-actions button:hover {
-    box-shadow: 0px 0px 5px 0px rgba(84, 116, 133, 0.5);
-}
-
-
-.tdi-item-actions button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-}

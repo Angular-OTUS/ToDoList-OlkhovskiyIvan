@@ -1,0 +1,12 @@
+<button 
+    (click)="onClick()" 
+    [disabled]="disable()"
+    [class]="type()"
+    [class.button-disabled]="disable()">
+    
+    <img [src]="buttonImg()">
+</button>
+
+<!-- class="{{type()}}"
+[class]="{'button-disabled': disable()}" -->
+    

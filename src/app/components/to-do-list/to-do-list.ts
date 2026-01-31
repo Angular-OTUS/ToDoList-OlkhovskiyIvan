@@ -1,32 +1,40 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
-import { ConstImgValue } from '../../models/constants';
+import { buttonType, ConstImgValue } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ButtonComponent } from "../button-component/button-component";
 
 @Component({
   selector: 'app-to-do-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TodoItem, FormsModule, MatInputModule],
+  imports: [TodoItem, FormsModule, MatInputModule, ButtonComponent],
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
-export class ToDoList {
+export class ToDoList implements OnInit{
+
   public img = ConstImgValue;
+  public bType = buttonType;
   public newTaskName = "";
+  public isLoading = signal(true);
   public toDoListTask: ITaskType[] = [
     {id: 1, text: "Задача 1"},
     {id: 2, text: "Задача 2"},
     {id: 3, text: "Задача 3"}
   ];
 
+  ngOnInit(): void {
+    setInterval(() => {this.isLoading.set(false)}, 500);
+  }
+
   onDelTask(id: number) {
       this.toDoListTask = this.toDoListTask.filter(item => item.id != id);
   }
 
-  onClickAdd() {
-    const maxIdValue: number = Math.max(...this.toDoListTask.map(obj => obj.id));
+  onClickAdd() {    
+    const maxIdValue: number = this.toDoListTask.length == 0 ? 0 : Math.max(...this.toDoListTask.map(obj => obj.id));    
 
     this.toDoListTask.push({
       id: maxIdValue + 1,

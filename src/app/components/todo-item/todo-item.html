@@ -4,8 +4,10 @@
     </div>
     <div class="tdi-item-text">{{ taskName() }}</div>
     <div class="tdi-item-actions">
-        <button (click)="onClickDell()">
-            <img [src]="img.delete">
-        </button>
+        <app-button-component 
+            [type]="bType.del"
+            [buttonImg]="img.delete" 
+            (clickButton)="onClickDell()">
+        </app-button-component>
     </div>
 </div>
