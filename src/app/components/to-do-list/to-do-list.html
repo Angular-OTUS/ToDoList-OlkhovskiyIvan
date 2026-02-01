@@ -13,7 +13,7 @@
                 <div class="tdl-content-body">
                     <div class="tdl-body-scroll">
                         <ul>
-                            @for (item of toDoListTask; track item.id) {
+                            @for (item of toDoListTask(); track item.id) {
                                 <li>
                                     <app-todo-item 
                                         [taskName]="item.text"
@@ -33,17 +33,9 @@
                     </div>
                 </div>
                 <div class="tdl-footer-actions">
-                    <!-- <button 
-                        (click)="onClickAdd()"
-                        [disabled]="newTaskName == ''" 
-                        class="tdl-button tdl-button-add" 
-                        [class]="{'tdl-button-disabled': newTaskName == ''}">
-
-                        <img [src]="img.plus_math">
-                    </button> -->
                     <app-button-component 
                         [type]="bType.add"
-                        [disable]="newTaskName == ''"
+                        [disable]="newTaskName() == ''"
                         [buttonImg]="img.plus_math" 
                         (clickButton)="onClickAdd()">
                     </app-button-component>

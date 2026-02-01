@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, input, Input, InputSignal, output, Signal } from '@angular/core';
 import { buttonType, ConstImgValue } from '../../models/constants';
 import { ButtonComponent } from "../button-component/button-component";
+import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-item',
@@ -11,10 +11,10 @@ import { ButtonComponent } from "../button-component/button-component";
 })
 export class TodoItem {
 
-  public img = ConstImgValue;
   public bType = buttonType;
+  protected  img = ConstImgValue;
   public taskName: InputSignal<string> = input.required<string>();
-  public delTask = output();
+  protected delTask = output();
 
   onClickDell() {
     this.delTask.emit();
