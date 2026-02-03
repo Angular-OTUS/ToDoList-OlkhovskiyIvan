@@ -29,14 +29,14 @@ export class ToDoList implements OnInit {
     setInterval(() => {this.isLoading.set(false)}, 500);
   }
 
-  onDelTask(id: number) {
-      this.toDoListTask.set(this.toDoListTask().filter(item => item.id != id));
+  onDelTask(id: number) {      
+      this.toDoListTask.update(value => value.filter(item => item.id != id));
   }
 
   onClickAdd() {    
-    const maxIdValue: number = this.toDoListTask.length == 0 ? 0 : Math.max(...this.toDoListTask().map(obj => obj.id));    
+    const maxIdValue: number = this.toDoListTask().length == 0 ? 0 : Math.max(...this.toDoListTask().map(obj => obj.id));    
 
-    this.toDoListTask.set([...this.toDoListTask(), {
+    this.toDoListTask.update(value => [...value, {
       id: maxIdValue + 1,
       text: this.newTaskName()
     }]);
