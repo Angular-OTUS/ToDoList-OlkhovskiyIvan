@@ -10,7 +10,7 @@ export enum ConstImgValue {
 }
 
 export enum buttonType {
-    add = "button--add",
-    del = "button--delete"
+    volume = "button-volume",
+    flat = "button-flat"
 }
 

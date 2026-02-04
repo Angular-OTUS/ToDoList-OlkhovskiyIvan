@@ -5,7 +5,7 @@
     <div class="tdi-item-text">{{ taskName() }}</div>
     <div class="tdi-item-actions">
         <app-button-component 
-            [type]="bType.del"
+            [type]="bType.flat"
             [buttonImg]="img.delete" 
             (clickButton)="delTask.emit()">
         </app-button-component>
