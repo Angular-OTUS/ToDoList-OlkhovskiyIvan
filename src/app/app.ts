@@ -6,7 +6,7 @@ import { ConstImgValue } from './models/constants';
   selector: 'app-root',
   imports: [ToDoList],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App {
   protected readonly title = signal('to_do_list');

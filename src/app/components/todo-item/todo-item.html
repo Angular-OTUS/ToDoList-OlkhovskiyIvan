@@ -1,13 +1,14 @@
 <div class="tdi-list-item">
     <div class="tdi-item-img">
-        <img [src]="img.approval" alt="approval">
+        <img [ngSrc]="img.approval" alt="approval" width="52" height="26">
     </div>
     <div class="tdi-item-text">{{ taskName() }}</div>
     <div class="tdi-item-actions">
         <app-button-component 
             [type]="bType.del"
             [buttonImg]="img.delete" 
-            (clickButton)="onClickDell()">
+            (clickButton)="delTask.emit()">
         </app-button-component>
     </div>
 </div>
+

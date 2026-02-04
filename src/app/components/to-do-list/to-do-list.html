@@ -35,7 +35,7 @@
                 <div class="tdl-footer-actions">
                     <app-button-component 
                         [type]="bType.add"
-                        [disable]="newTaskName() == ''"
+                        [disable]="newTaskName() === ''"
                         [buttonImg]="img.plus_math" 
                         (clickButton)="onClickAdd()">
                     </app-button-component>
