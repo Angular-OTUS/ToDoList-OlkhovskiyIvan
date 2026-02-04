@@ -4,37 +4,41 @@
     </div>
     <div class="tdl-gradient-border">
         <div class="tdl-content">
-            <div class="tdl-content-title"></div>
-            <div class="tdl-content-body">
-                <div class="tdl-body-scroll">
-                    <ul>
-                        @for (item of toDoListTask(); track item.id) {
-                            <li>
-                                <app-todo-item 
-                                    [taskName]="item.text"
-                                    (delTask)="onDelTask(item.id)">
-                                </app-todo-item>
-                            </li>                            
-                        }
-                    </ul>   
+
+            @if (isLoading()) { 
+                <div class="tdl-content-loader">
+                    <svg fill="#A8BDC8FF" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="RadialGradient8932"><stop offset="0%" stop-color="currentColor" stop-opacity="1"/><stop offset="100%" stop-color="currentColor" stop-opacity="0.25"/></linearGradient></defs><circle cx="10" cy="10" r="8" id="circle8932" stroke-width="2"/></svg>                
+                </div>                
+            } @else { 
+                <div class="tdl-content-body">
+                    <div class="tdl-body-scroll">
+                        <ul>
+                            @for (item of toDoListTask(); track item.id) {
+                                <li>
+                                    <app-todo-item 
+                                        [taskName]="item.text"
+                                        (delTask)="onDelTask(item.id)">
+                                    </app-todo-item>
+                                </li>                            
+                            }
+                        </ul>   
+                    </div>
                 </div>
-            </div>
+            } 
+
             <div class="tdl-content-footer">
                 <div class="tdl-footer-input tdl-gradient-border-inset">
-                    <div class="tdl-input-body">
+                    <div class="tdl-input-body">                        
                         <input matInput [(ngModel)]="newTaskName">
                     </div>
                 </div>
                 <div class="tdl-footer-actions">
-                    <button 
-                        type="button"
-                        (click)="onClickAdd()"
-                        [disabled]="newTaskName() == ''" 
-                        class="tdl-button tdl-button-add" 
-                        [class.tdl-button-disabled]=" newTaskName() == ''">
-
-                        <img [src]="img.plus_math" alt="plus_math">
-                    </button>
+                    <app-button-component 
+                        [type]="bType.add"
+                        [disable]="newTaskName() == ''"
+                        [buttonImg]="img.plus_math" 
+                        (clickButton)="onClickAdd()">
+                    </app-button-component>
                 </div>
             </div>
         </div>

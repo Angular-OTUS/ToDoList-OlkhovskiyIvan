@@ -9,3 +9,8 @@ export enum ConstImgValue {
     shutdown="src/assets/images/shutdown.svg",
 }
 
+export enum buttonType {
+    add = "button--add",
+    del = "button--delete"
+}
+
