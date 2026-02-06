@@ -1,11 +1,11 @@
 <button 
     type="button"
-    (click)="onClick()" 
+    (click)="clickButton.emit()" 
     [disabled]="disable()"
     [class]="type()"
     [class.button-disabled]="disable()">
     
-    <img [src]="buttonImg()">
+    <img [ngSrc]="buttonImg()" [alt]="buttonAlt()" width="52" height="26">
 </button>
 
     

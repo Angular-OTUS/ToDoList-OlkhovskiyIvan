@@ -16,29 +16,29 @@ import { ButtonComponent } from "../button-component/button-component";
 export class ToDoList implements OnInit {
 
   protected bType = buttonType;
-  public isLoading = signal(true);
+  protected isLoading = signal(true);
   protected img = ConstImgValue;
   protected newTaskName: WritableSignal<string> = signal("");
   protected toDoListTask: WritableSignal<ITaskType[]> = signal([
     {id: 1, text: "Задача 1"},
     {id: 2, text: "Задача 2"},
-    {id: 3, text: "Задача 3"}
+    {id: 3, text: "Задача 3"},
   ]);
 
   ngOnInit(): void {
-    setInterval(() => {this.isLoading.set(false)}, 500);
+    setTimeout(() => {this.isLoading.set(false)}, 500);
   }
 
   onDelTask(id: number) {      
-      this.toDoListTask.update(value => value.filter(item => item.id != id));
+      this.toDoListTask.update(value => value.filter(item => item.id !== id));
   }
 
   onClickAdd() {    
-    const maxIdValue: number = this.toDoListTask().length == 0 ? 0 : Math.max(...this.toDoListTask().map(obj => obj.id));    
+    const maxIdValue: number = this.toDoListTask().length === 0 ? 0 : Math.max(...this.toDoListTask().map(obj => obj.id));    
 
     this.toDoListTask.update(value => [...value, {
       id: maxIdValue + 1,
-      text: this.newTaskName()
+      text: this.newTaskName(),
     }]);
     
     this.newTaskName.set("");
