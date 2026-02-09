@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { buttonType, ConstImgValue } from '../../models/constants';
+import { buttonType, ImgPath } from '../../models/constants';
 import { ButtonComponent } from "../button-component/button-component";
 import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '@angular/core';
 
@@ -12,9 +12,16 @@ import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '
 })
 export class TodoItem {
 
-  public bType = buttonType;
-  protected  img = ConstImgValue;
+  public buttonType = buttonType;
+  protected  img = ImgPath;
   public taskName: InputSignal<string> = input.required<string>();
+  public isSelect: InputSignal<boolean> = input<boolean>(false);
   protected delTask = output();
+  protected clickTask = output();
+
+  onClickButton(event: PointerEvent) {
+    this.delTask.emit();
+    event.stopPropagation();
+  }
 
 }
