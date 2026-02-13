@@ -5,6 +5,8 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use '../src/app/directives/tooltip.scss' as tooltip;
+//@import '../src/app/directives/tooltip.scss';
 
 html {
   height: 100%;
@@ -45,6 +47,7 @@ body {
   margin: 0;
   overflow: hidden;
   font-size: 20px;
+  font-family: system-ui;
 }
 
 body {

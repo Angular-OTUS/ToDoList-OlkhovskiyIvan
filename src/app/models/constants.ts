@@ -1,4 +1,4 @@
-export enum ConstImgValue {
+export enum ImgPath {
     approval = "src/assets/images/approval.svg",
     delete =  "src/assets/images/delete.svg",
     plus_math = "src/assets/images/plus_math.svg",
