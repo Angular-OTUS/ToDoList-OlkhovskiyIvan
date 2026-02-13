@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, signal, WritableSignal } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
 import { buttonType, ImgPath } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -20,7 +20,10 @@ export class ToDoList implements OnInit {
   protected buttonType = buttonType;
   protected isLoading = signal(true);
   protected img = ImgPath;
-  protected selectedItemId: number | undefined;
+  protected selectedItemId: WritableSignal<number | undefined> = signal(undefined);
+  protected selectedItem = computed(() => 
+    this.toDoListTask().find(item => item.id === this.selectedItemId())
+  );
   protected newTaskName: WritableSignal<string> = signal("");
   protected newTaskDescription: WritableSignal<string> = signal("");
   protected toDoListTask: WritableSignal<ITaskType[]> = signal([
@@ -35,11 +38,11 @@ export class ToDoList implements OnInit {
 
   onDelTask(id: number) {      
       this.toDoListTask.update(value => value.filter(item => item.id !== id));
-      if (this.selectedItemId === id) this.selectedItemId = undefined;
+      if (this.selectedItemId() === id) this.selectedItemId.set(undefined);
   }
 
   onClickTask(id: number) {
-    this.selectedItemId = id;
+    this.selectedItemId.set(id);
   }
 
   onClickAdd() {    

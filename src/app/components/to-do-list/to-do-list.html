@@ -18,7 +18,7 @@
                                     <li>
                                         <app-todo-item 
                                             [taskName]="item.text"
-                                            [isSelect]="selectedItemId === item.id"
+                                            [isSelect]="selectedItemId() === item.id"
                                             (delTask)="onDelTask(item.id)"
                                             (clickTask)="onClickTask(item.id)">
                                         </app-todo-item>
@@ -57,13 +57,13 @@
             </div>
         </div>        
     </div>
-    @if (selectedItemId) {
+    @if (selectedItemId()) {
         <div class="tdl-right-side">
             <div class="tdl-header">     
             </div>
             <div class="tdl-gradient-border">
                 <div class="tdl-content">
-                    <app-item-description [taskItem]="getItemById(selectedItemId)"></app-item-description>
+                    <app-item-description [taskItem]="selectedItem()"></app-item-description>
                 </div>
             </div>
         </div>

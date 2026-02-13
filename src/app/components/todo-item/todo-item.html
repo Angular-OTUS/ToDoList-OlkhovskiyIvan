@@ -1,4 +1,10 @@
-<div (click)="clickTask.emit()" class="tdi-list-item" [class.tdi-list-item-select]="isSelect()">
+<div
+    [appTooltip]="'Показать детали задачи'"
+    [delayTooltip]=1000
+    (click)="clickTask.emit()" 
+    class="tdi-list-item" 
+    [class.tdi-list-item-select]="isSelect()">
+
     <div class="tdi-item-img">
         <img [ngSrc]="img.approval" alt="approval" width="52" height="26">
     </div>
