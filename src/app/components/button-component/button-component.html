@@ -1,0 +1,13 @@
+<button 
+    [appTooltip]="tooltipText()"
+    [delayTooltip]=1000
+    type="button"
+    (click)="clickButton.emit($event)"     
+    [disabled]="disable()"
+    [class]="type()"
+    [class.button-disabled]="disable()">
+    
+    <img [ngSrc]="buttonImg()" [alt]="buttonAlt()" width="52" height="26">
+</button>
+
+    

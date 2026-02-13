@@ -5,6 +5,7 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@import '../src/app/directives/tooltip.scss';
 
 html {
   height: 100%;
@@ -45,6 +46,7 @@ body {
   margin: 0;
   overflow: hidden;
   font-size: 20px;
+  font-family: system-ui;
 }
 
 body {
@@ -55,11 +57,4 @@ ul,li {
   list-style-type: none; 
   margin: 0;
   padding: 0;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
 }

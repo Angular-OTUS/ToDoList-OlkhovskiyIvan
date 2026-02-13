@@ -1,11 +1,15 @@
-<div class="tdi-list-item">
+<div (click)="clickTask.emit()" class="tdi-list-item" [class.tdi-list-item-select]="isSelect()">
     <div class="tdi-item-img">
-        <img [src]="img.approval" alt="approval">
+        <img [ngSrc]="img.approval" alt="approval" width="52" height="26">
     </div>
     <div class="tdi-item-text">{{ taskName() }}</div>
     <div class="tdi-item-actions">
-        <button type="button" (click)="onClickDell()">
-            <img [src]="img.delete" alt="delete">
-        </button>
+        <app-button-component 
+            tooltipText="Удаление задачи"
+            [type]="buttonType.flat"
+            [buttonImg]="img.delete" 
+            (clickButton)="onClickButton($event)">
+        </app-button-component>
     </div>
 </div>
+

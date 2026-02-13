@@ -1,0 +1,36 @@
+:host {
+    flex: auto;
+    display: flex;
+    padding: 1rem;
+}
+
+.id-main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.id-title {
+    color: #7d878d;
+    font-size: 1.4rem;
+    font-weight: 500;
+    padding: 0.5rem 0rem;
+}
+
+.id-content {
+    flex: auto;
+    border-top-width: 0px !important;
+    border-left-width: 0px !important;
+    border-bottom-width: 1px !important;
+    border-right-width: 1px !important;
+    box-shadow: 1px 1px 3px 0px rgba(84, 116, 133, 0.5) inset !important;
+    border: 0px solid #fff;
+    border-radius: 0.4rem;
+    padding: 1rem;
+    
+}
+
+.id-content-text {
+   color: #7d878d; 
+}
