@@ -1,9 +1,9 @@
-import { Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { ITaskType } from '../../models/interfaces';
 
 @Component({
   selector: 'app-item-description',
-  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './item-description.html',
   styleUrl: './item-description.scss',
 })

@@ -20,6 +20,7 @@
                                             [taskName]="item.text"
                                             [isSelect]="selectedItemId() === item.id"
                                             (delTask)="onDelTask(item.id)"
+                                            (updateTask)="onUpdateTask($event, item.id)"
                                             (clickTask)="onClickTask(item.id)">
                                         </app-todo-item>
                                     </li>                            
