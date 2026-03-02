@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { INewTaskType, ITaskType } from '../models/interfaces';
+import { StatusTaskTypes } from '../models/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -7,9 +8,9 @@ import { INewTaskType, ITaskType } from '../models/interfaces';
 export class ToDoListService {
   
   private toDoListTask: ITaskType[] = [
-    {id: 1, text: "Задача 1", description: "Описание задачи 1"},
-    {id: 2, text: "Задача 2", description: "Описание задачи 2"},
-    {id: 3, text: "Задача 3", description: "Описание задачи 3"},
+    {id: 1, text: "Задача 1", description: "Описание задачи 1", status: StatusTaskTypes.inProgress},
+    {id: 2, text: "Задача 2", description: "Описание задачи 2", status: StatusTaskTypes.inProgress},
+    {id: 3, text: "Задача 3", description: "Описание задачи 3", status: StatusTaskTypes.inProgress},
   ];
 
   public getToDoList(): ITaskType[] {
@@ -33,6 +34,7 @@ export class ToDoListService {
       id: maxIdValue + 1,
       text: task.text,
       description: task.description,
+      status: StatusTaskTypes.inProgress
     });
     
     return this.toDoListTask;

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, OnInit, signal, WritableSignal } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
-import { ButtonType, ImgPath, MessageType } from '../../models/constants';
+import { ButtonTypes, ImgPath, MessageTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,17 +8,19 @@ import { ButtonComponent } from "../button-component/button-component";
 import { ItemDescription } from "../item-description/item-description";
 import { ToDoListService } from '../../services/to-do-list-service';
 import { ToastService } from '../../services/toast-service';
+import { NgOptimizedImage } from '@angular/common';
+import { Spinner } from "../spinner/spinner";
 
 @Component({
   selector: 'app-to-do-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TodoItem, FormsModule, MatInputModule, ButtonComponent, ItemDescription],
+  imports: [NgOptimizedImage, TodoItem, FormsModule, MatInputModule, ButtonComponent, ItemDescription, Spinner],
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
 export class ToDoList implements OnInit {
 
-  protected buttonType = ButtonType;
+  protected buttonType = ButtonTypes;
   protected isLoading = signal(true);
   protected img = ImgPath;
   protected selectedItemId: WritableSignal<number | undefined> = signal(undefined);
@@ -56,7 +58,7 @@ export class ToDoList implements OnInit {
     this.newTaskDescription.set("");
     this.newTaskName.set("");
 
-    this.toastService.show("Новая задача успешно добавлена в список дел!", MessageType.info)
+    this.toastService.show("Новая задача успешно добавлена в список дел!", MessageTypes.info)
   }
 
   onUpdateTask(event: string, id: number) {    

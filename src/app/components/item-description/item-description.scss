@@ -1,7 +1,7 @@
 :host {
     flex: auto;
     display: flex;
-    padding: 1rem;
+    padding: 0rem 1rem 1rem 1rem;    
 }
 
 .id-main {
@@ -15,7 +15,9 @@
     color: #7d878d;
     font-size: 1.4rem;
     font-weight: 500;
-    padding: 0.5rem 0rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
 }
 
 .id-content {

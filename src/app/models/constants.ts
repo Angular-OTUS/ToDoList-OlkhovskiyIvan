@@ -14,14 +14,19 @@ export enum ImgPath {
     close = "src/assets/images/close.svg",
 }
 
-export enum ButtonType {
+export enum ButtonTypes {
     volume = "button-volume",
     flat = "button-flat"
 }
 
-export enum MessageType {
+export enum MessageTypes {
     warning = 'Предупреждение',
     error = 'Ошибка',
     info = 'Сообщение'
+}
+
+export enum StatusTaskTypes {
+    inProgress = 'InProgress',
+    completed = 'Completed'
 }
 

@@ -2,7 +2,7 @@ import { Component, computed, signal, Signal } from '@angular/core';
 import { ToastService } from '../../services/toast-service';
 import { IToastType } from '../../models/interfaces';
 import { NgOptimizedImage } from '@angular/common';
-import { ImgPath, MessageType } from '../../models/constants';
+import { ImgPath, MessageTypes } from '../../models/constants';
 
 @Component({
   selector: 'app-toasts-component',
@@ -14,23 +14,23 @@ export class ToastsComponent {
 
 
   protected imgPath = ImgPath;  
-  protected messageType = MessageType;  
+  protected messageType = MessageTypes;  
   protected toastMessage = computed(() => this.toastService.getToast()());
   constructor(private toastService: ToastService) { }
 
-  getImg(type:MessageType):ImgPath {
+  getImg(type:MessageTypes):ImgPath {
     switch(type) {
-      case MessageType.info: return ImgPath.info;
-      case MessageType.error: return ImgPath.error;
-      case MessageType.warning: return ImgPath.warning;
+      case MessageTypes.info: return ImgPath.info;
+      case MessageTypes.error: return ImgPath.error;
+      case MessageTypes.warning: return ImgPath.warning;
     }    
   }
 
-  getAlt(type: MessageType):string {
+  getAlt(type: MessageTypes):string {
     switch(type) {
-      case MessageType.info: return "Info";
-      case MessageType.error: return "Error";
-      case MessageType.warning: return "Warning";
+      case MessageTypes.info: return "Info";
+      case MessageTypes.error: return "Error";
+      case MessageTypes.warning: return "Warning";
     }  
   }
 
