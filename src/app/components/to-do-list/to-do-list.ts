@@ -60,7 +60,9 @@ export class ToDoList implements OnInit {
   }
 
   onUpdateTask(event: string, id: number) {    
-    this.toDoListTask.set([...this.toDoListService.updateItem(id, event)]);    
+    this.toDoListTask.set([...this.toDoListService.updateItem(id, event)]);  
+    
+    this.toastService.show("Наименование задачи успешно обновлено!", MessageType.info)
   }
 
 }

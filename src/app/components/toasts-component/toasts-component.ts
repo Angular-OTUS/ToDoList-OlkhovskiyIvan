@@ -23,6 +23,7 @@ export class ToastsComponent {
       case MessageType.info: return ImgPath.info;
       case MessageType.error: return ImgPath.error;
       case MessageType.warning: return ImgPath.warning;
+      default: return ImgPath.info;
     }    
   }
 
@@ -31,6 +32,7 @@ export class ToastsComponent {
       case MessageType.info: return "Info";
       case MessageType.error: return "Error";
       case MessageType.warning: return "Warning";
+      default: return "Info";
     }  
   }
 
