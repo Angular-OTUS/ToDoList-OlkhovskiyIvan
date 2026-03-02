@@ -1,0 +1,119 @@
+:host {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    bottom: 0;
+    width: 18rem;
+}
+
+.tc-main {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.tc-toast-item-error {
+    background: linear-gradient(133deg, rgb(255 255 255) 10%, rgb(193 46 46) 20%, rgb(255 255 255) 70%);
+    &:before {
+        background: linear-gradient(135deg, #ffcfcf, #dee8ef 60%);
+    }
+}
+
+.tc-toast-item-info {
+    background: linear-gradient(133deg, rgb(255, 255, 255) 10%, rgb(20 147 66) 20%, rgb(255, 255, 255) 70%);
+    &:before {
+        background: linear-gradient(135deg, #b9ffc5, #dee8ef 60%);
+    }
+}
+
+.tc-toast-item {
+    position: relative;    
+    border-radius: 1rem;
+    width: 100%;
+    height: 5rem;
+    box-shadow: 2px 2px 6px 0px rgba(84, 116, 133, 0.5);    
+    margin-bottom: 0.3rem;
+
+    &:before {
+    content: "";
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;        
+        border-radius: inherit;
+        background-clip: padding-box;
+        border: solid 1px transparent;
+    }
+}
+
+.tc-item-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.tc-item-img {
+    padding: 10px;
+    display: flex;
+    align-items: center;    
+}
+
+.tc-toast-item-error .tc-item-img-back {
+    background-color: #f16257;
+}
+
+.tc-toast-item-info .tc-item-img-back {
+    background-color: #17a54b;
+}
+
+.tc-item-img-back {
+    padding: 5px;    
+    border-radius: 12px;
+    display: flex;
+    box-shadow: 0px 0px 6px 0px rgba(84, 116, 133, 0.7);    
+}
+
+.tc-item-text {
+   flex: auto; 
+}
+
+.tc-toast-item-error .tc-item-title {
+    color: #f16257; 
+}
+
+.tc-toast-item-info .tc-item-title {
+    color: #17a54b;
+}
+
+.tc-item-title {
+    padding: 0.3rem 0;
+}
+
+.tc-item-message {
+    font-size: 0.8rem;
+    line-height: normal;
+}
+
+.tc-item-control {
+    width: 1rem;
+    height: 1rem;
+    padding: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 0px 6px 0px rgba(84, 116, 133, 0.4);   
+    }
+    &:active {
+        box-shadow: none;
+    }
+}

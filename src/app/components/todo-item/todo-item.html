@@ -2,20 +2,40 @@
     [appTooltip]="'Показать детали задачи'"
     [delayTooltip]=1000
     (click)="clickTask.emit()" 
+    (dblclick)="this.isEdit.set(true)"
     class="tdi-list-item" 
     [class.tdi-list-item-select]="isSelect()">
 
     <div class="tdi-item-img">
         <img [ngSrc]="img.approval" alt="approval" width="52" height="26">
     </div>
-    <div class="tdi-item-text">{{ taskName() }}</div>
+
+    @if (isEdit()) {         
+        <div class="tdi-item-text tdi-item-input">
+            <input #inputField matInput [value]="taskName()" (keyup)="keypressTask($event, inputField.value)" appAutoselect>            
+        </div>        
+    } @else { 
+        <div class="tdi-item-text">{{ taskName() }}</div>
+    }
     <div class="tdi-item-actions">
-        <app-button-component 
-            tooltipText="Удаление задачи"
-            [type]="buttonType.flat"
-            [buttonImg]="img.delete" 
-            (clickButton)="onClickButton($event)">
-        </app-button-component>
+
+
+        @if (isEdit()) {         
+            <app-button-component 
+                tooltipText="Сохранить наименование"
+                [type]="buttonType.flat"
+                [buttonImg]="img.save" 
+                (clickButton)="onClickSave($event)">
+            </app-button-component>     
+        } @else { 
+            <app-button-component 
+                tooltipText="Удаление задачи"
+                [type]="buttonType.flat"
+                [buttonImg]="img.delete" 
+                (clickButton)="onClickButton($event)">
+            </app-button-component>
+        }
+
     </div>
 </div>
 
