@@ -12,6 +12,7 @@ export enum ImgPath {
     error = "src/assets/images/error.svg",
     warning = "src/assets/images/warning.svg",
     close = "src/assets/images/close.svg",
+    horizontal_settings_mixer = "src/assets/images/horizontal_settings_mixer.svg",
 }
 
 export enum ButtonTypes {

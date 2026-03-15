@@ -14,19 +14,23 @@ import { ToastService } from '../../services/toast-service';
   templateUrl: './todo-item.html',
   styleUrl: './todo-item.scss',
 })
-export class TodoItem {
+export class TodoItem implements OnInit {
 
   protected buttonType = ButtonTypes;
   protected img = ImgPath;
-  protected isEdit: WritableSignal<boolean> = signal(false);  
-  protected newTaskName: string = "";
+  protected isEdit: WritableSignal<boolean> = signal(false);    
   public taskName: InputSignal<string> = input.required<string>();
+  protected newTaskName: string = "";
   public isSelect: InputSignal<boolean> = input<boolean>(false);
   public delTask = output();
   public clickTask = output();  
   public updateTask = output<string>();  
 
-  constructor(private toastService: ToastService) {}
+  constructor(private toastService: ToastService) { }
+  
+  ngOnInit(): void {
+    this.newTaskName = this.taskName();
+  }
 
   onClickButton(event: PointerEvent) {
     this.delTask.emit();

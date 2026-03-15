@@ -15,5 +15,6 @@ export class ButtonComponent {
   public tooltipText: InputSignal<string> = input.required<string>();
   public disable: InputSignal<boolean> = input<boolean>(false);
   public clickButton = output<PointerEvent>();
+  public typeButton = input<string>('button');
 
 }

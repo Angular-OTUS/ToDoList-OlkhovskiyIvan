@@ -1,0 +1,26 @@
+<form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)" novalidate>
+    <div class="tci-footer-top">
+        <div class="tci-footer-input tci-gradient-border-inset">
+            <div class="tci-input-body">                        
+                <input name="text" matInput [(ngModel)]="newTask.text" required>
+            </div>
+        </div>
+        <div class="tci-footer-actions">
+            <app-button-component 
+                tooltipText="Добавление новой задачи"
+                [type]="buttonType.volume"
+                [disable]="taskForm.invalid || false"
+                typeButton="submit">
+
+                <img [ngSrc]="img.plus_math" alt="Добавление новой задачи" width="52" height="26">
+            </app-button-component>
+        </div>                        
+    </div>
+    <div class="tci-footer-bottom">
+        <div class="tci-footer-input tci-gradient-border-inset">
+            <div class="tci-input-body">                        
+                <textarea name="description" matInput [(ngModel)]="newTask.description"></textarea>
+            </div>
+        </div>                        
+    </div>
+</form>

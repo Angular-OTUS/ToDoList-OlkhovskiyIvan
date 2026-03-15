@@ -1,7 +1,7 @@
 <button 
     [appTooltip]="tooltipText()"
     [delayTooltip]=1000
-    type="button"
+    [type]="typeButton()"
     (click)="clickButton.emit($event)"     
     [disabled]="disable()"
     [class]="type()"

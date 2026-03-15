@@ -1,6 +1,5 @@
 import { Component, computed, signal, Signal } from '@angular/core';
 import { ToastService } from '../../services/toast-service';
-import { IToastType } from '../../models/interfaces';
 import { NgOptimizedImage } from '@angular/common';
 import { ImgPath, MessageTypes } from '../../models/constants';
 
@@ -12,7 +11,6 @@ import { ImgPath, MessageTypes } from '../../models/constants';
 })
 export class ToastsComponent {
 
-
   protected imgPath = ImgPath;  
   protected messageType = MessageTypes;  
   protected toastMessage = computed(() => this.toastService.getToast()());
@@ -23,6 +21,7 @@ export class ToastsComponent {
       case MessageTypes.info: return ImgPath.info;
       case MessageTypes.error: return ImgPath.error;
       case MessageTypes.warning: return ImgPath.warning;
+      default: return ImgPath.info;
     }    
   }
 
@@ -31,6 +30,7 @@ export class ToastsComponent {
       case MessageTypes.info: return "Info";
       case MessageTypes.error: return "Error";
       case MessageTypes.warning: return "Warning";
+      default: return "Info";
     }  
   }
 
