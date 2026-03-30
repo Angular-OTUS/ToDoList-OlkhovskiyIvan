@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ButtonType, ImgPath, MessageType } from '../../models/constants';
+import { ButtonTypes, ImgPath, MessageTypes } from '../../models/constants';
 import { ButtonComponent } from "../button-component/button-component";
 import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnInit, output, signal, Signal, WritableSignal } from '@angular/core';
 import { Tooltip } from '../../directives/tooltip';
@@ -16,7 +16,7 @@ import { ToastService } from '../../services/toast-service';
 })
 export class TodoItem implements OnInit {
 
-  protected buttonType = ButtonType;
+  protected buttonType = ButtonTypes;
   protected img = ImgPath;
   protected isEdit: WritableSignal<boolean> = signal(false);    
   public taskName: InputSignal<string> = input.required<string>();
@@ -45,7 +45,7 @@ export class TodoItem implements OnInit {
   onClickSave(event?: PointerEvent) {
 
     if (this.newTaskName.trim() === "") {
-      this.toastService.show("Необходимо указать наименование задачи перед сохранением.", MessageType.error, 7000);
+      this.toastService.show("Необходимо указать наименование задачи перед сохранением.", MessageTypes.error, 7000);
       return;
     }
 

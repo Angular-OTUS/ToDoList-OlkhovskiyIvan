@@ -12,16 +12,22 @@ export enum ImgPath {
     error = "src/assets/images/error.svg",
     warning = "src/assets/images/warning.svg",
     close = "src/assets/images/close.svg",
+    horizontal_settings_mixer = "src/assets/images/horizontal_settings_mixer.svg",
 }
 
-export enum ButtonType {
+export enum ButtonTypes {
     volume = "button-volume",
     flat = "button-flat"
 }
 
-export enum MessageType {
+export enum MessageTypes {
     warning = 'Предупреждение',
     error = 'Ошибка',
     info = 'Сообщение'
+}
+
+export enum StatusTaskTypes {
+    inProgress = 'InProgress',
+    completed = 'Completed'
 }
 

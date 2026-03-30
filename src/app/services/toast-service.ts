@@ -1,5 +1,5 @@
 import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { MessageType } from '../models/constants';
+import { MessageTypes } from '../models/constants';
 import { IToastType } from '../models/interfaces';
 
 @Injectable({
@@ -9,12 +9,12 @@ export class ToastService {
   private toastText: WritableSignal<IToastType[]> = signal([]); 
   private index: number = 0;
 
-  show(message: string, type?: MessageType, duration?: number) {
+  show(message: string, type?: MessageTypes, duration?: number) {
     
     const newMess:IToastType = { 
       index: this.index++, 
       message: message, 
-      type: type ? type : MessageType.info 
+      type: type ? type : MessageTypes.info,      
     }
 
     this.toastText.update((toastText) => [...toastText, newMess]);

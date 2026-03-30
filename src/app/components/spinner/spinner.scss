@@ -1,0 +1,29 @@
+:host {
+    flex: auto;
+}
+
+.s-content-loader svg {
+    width: 3rem;
+    height: 3rem;    
+}
+
+.s-content-loader {
+    flex: auto;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+// loader
+@keyframes spin8932 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#circle8932 {
+    transform-origin: 50% 50%;
+    stroke: url(#RadialGradient8932);
+    fill: none;
+    animation: spin8932 .5s infinite linear;
+}

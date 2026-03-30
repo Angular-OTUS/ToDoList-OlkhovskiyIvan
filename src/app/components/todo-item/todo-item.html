@@ -24,15 +24,17 @@
             <app-button-component 
                 tooltipText="Сохранить наименование"
                 [type]="buttonType.flat"
-                [buttonImg]="img.save" 
                 (clickButton)="onClickSave($event)">
+
+                <img [ngSrc]="img.save" alt="Сохранить наименование" width="52" height="26">
             </app-button-component>     
         } @else { 
             <app-button-component 
                 tooltipText="Удаление задачи"
                 [type]="buttonType.flat"
-                [buttonImg]="img.delete" 
                 (clickButton)="onClickButton($event)">
+
+                <img [ngSrc]="img.delete" alt="Удаление задачи" width="52" height="26">
             </app-button-component>
         }
 
