@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, OnInit, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, OnDestroy, signal, WritableSignal } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -13,6 +13,7 @@ import { RestService } from '../../services/rest-service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { TodoCreateItem } from "../todo-create-item/todo-create-item";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-to-do-list',
@@ -21,7 +22,7 @@ import { TodoCreateItem } from "../todo-create-item/todo-create-item";
   templateUrl: './to-do-list.html',
   styleUrl: './to-do-list.scss',
 })
-export class ToDoList implements OnInit {
+export class ToDoList implements OnInit, OnDestroy {
 
   protected buttonType = ButtonTypes;
   protected isLoading = signal(true);
@@ -32,7 +33,7 @@ export class ToDoList implements OnInit {
   protected selectedItem = computed(() => 
     this.toDoListTask().find(item => item.id === this.selectedItemId())
   );
-
+  protected subscriptions: Subscription[] = [];
   protected toDoListTask: WritableSignal<ITaskType[]> = signal([]);
 
 
@@ -48,16 +49,21 @@ export class ToDoList implements OnInit {
     
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   loadToDoListTask(filterValue: StatusTaskTypes | null) {
 
     this.selectItemFilter = filterValue;
     this.selectedItemId.set(undefined);
     this.isLoading.set(true);
-    this.restService.getTasks(this.selectItemFilter).subscribe((result) => {
+    const sub = this.restService.getTasks(this.selectItemFilter).subscribe((result) => {
       this.toDoListTask.set(result);
       this.toDoListService.initList(result);
       this.isLoading.set(false);
     });
+    this.subscriptions.push(sub);
   }
 
   onAddTask(task: ITaskType) {
@@ -66,12 +72,12 @@ export class ToDoList implements OnInit {
 
   onDelTask(id: number) {   
     this.isLoading.set(true);
-    this.restService.delTask(id).subscribe(() => {
+    const sub = this.restService.delTask(id).subscribe(() => {
       this.toDoListTask.set(this.toDoListService.delItem(id));
       if (this.selectedItemId() === id) this.selectedItemId.set(undefined);
       this.isLoading.set(false);
     });
-
+    this.subscriptions.push(sub);
   }
 
   onClickTask(id: number) {
@@ -86,12 +92,12 @@ export class ToDoList implements OnInit {
     item.text = event;
 
     this.isLoading.set(true);
-    this.restService.updateTask(id, item).subscribe(() => {
+    const sub = this.restService.updateTask(id, item).subscribe(() => {
       this.toDoListTask.update((value) => [...value]);    
       this.toastService.show("Наименование задачи успешно обновлено!", MessageTypes.info);
       this.isLoading.set(false);
     });
-
+    this.subscriptions.push(sub);
   }
 
   onChangeStatus(event: StatusTaskTypes) {
@@ -103,12 +109,12 @@ export class ToDoList implements OnInit {
     item.status = event;
 
     this.isLoading.set(true);
-    this.restService.updateTask(id, item).subscribe(() => {
+    const sub = this.restService.updateTask(id, item).subscribe(() => {
       this.toDoListTask.update((value) => [...value]);    
       if (event == StatusTaskTypes.completed) this.toastService.show("Задача успешно выполнена!", MessageTypes.info)
       this.isLoading.set(false);
     });
-    
+    this.subscriptions.push(sub);
   }
 
 }

@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ButtonTypes, ImgPath, MessageTypes } from '../../models/constants';
 import { ButtonComponent } from "../button-component/button-component";
-import { ChangeDetectionStrategy, Component, computed, input, InputSignal, OnInit, output, signal, Signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal, OnInit, output, signal, WritableSignal } from '@angular/core';
 import { Tooltip } from '../../directives/tooltip';
 import { FormsModule } from '@angular/forms';
 import { Autoselect } from '../../directives/autofocus';
