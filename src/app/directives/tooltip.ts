@@ -12,6 +12,7 @@ export class Tooltip {
 
   public appTooltip: InputSignal<string> = input.required<string>();
   public delayTooltip: InputSignal<number> = input<number>(0);
+  public visibleTooltip: InputSignal<boolean> = input<boolean>(true);
   private tooltipElement!: HTMLElement | null;
   private timeOut!: number | null;
 
@@ -30,7 +31,7 @@ export class Tooltip {
 
   tooltipAdd() {
 
-    if (this.timeOut || this.tooltipElement) return;
+    if (!this.visibleTooltip() || this.timeOut || this.tooltipElement) return;
 
     this.timeOut = setTimeout(() => { 
 

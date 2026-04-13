@@ -1,29 +1,29 @@
 import { ChangeDetectionStrategy, Component, computed, OnInit, OnDestroy, signal, WritableSignal, input } from '@angular/core';
-import { TodoItem } from "../todo-item/todo-item";
+import { TodoItem } from "../../components/todo-item/todo-item";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { ItemDescription } from "../item-description/item-description";
+import { ItemDescription } from "../../components/item-description/item-description";
 import { ToDoListService } from '../../services/to-do-list-service';
 import { ToastService } from '../../services/toast-service';
 import { NgOptimizedImage } from '@angular/common';
-import { Spinner } from "../spinner/spinner";
+import { Spinner } from "../../components/spinner/spinner";
 import { RestService } from '../../services/rest-service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
-import { TodoCreateItem } from "../todo-create-item/todo-create-item";
+import { TodoCreateItem } from "../../components/todo-create-item/todo-create-item";
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-to-do-list',
+  selector: 'app-backlog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatMenuModule, MatButtonModule, NgOptimizedImage, TodoItem, FormsModule, MatInputModule, ItemDescription, Spinner, TodoCreateItem],
-  templateUrl: './to-do-list.html',
-  styleUrl: './to-do-list.scss',
+  templateUrl: './backlog.html',
+  styleUrl: './backlog.scss',
 })
-export class ToDoList implements OnInit, OnDestroy {
+export class Backlog implements OnInit, OnDestroy {
 
   protected buttonType = ButtonTypes;
   protected isLoading = signal(true);
@@ -75,13 +75,13 @@ export class ToDoList implements OnInit, OnDestroy {
     const sub = this.restService.delTask(id).subscribe(() => {
       this.toDoListTask.set(this.toDoListService.delItem(id));      
       this.isLoading.set(false);
-      this.router.navigate(['tasks']);
+      this.router.navigate(['backlog']);
     });
     this.subscriptions.push(sub);
   }
 
   onClickTask(id: number) {    
-    this.router.navigate(['tasks', id.toString()]);
+    this.router.navigate(['backlog', id.toString()]);
   }
 
 

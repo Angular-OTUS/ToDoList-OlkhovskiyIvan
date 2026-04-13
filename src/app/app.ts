@@ -1,7 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { ImgPath } from './models/constants';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ImgPath, mainMenuConfig } from './models/constants';
 import { ToastsComponent } from "./components/toasts-component/toasts-component";
-import { RouterOutlet } from "@angular/router";
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import { IMainMenuType } from './models/interfaces';
+import { filter, tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +13,24 @@ import { RouterOutlet } from "@angular/router";
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('to_do_list');
-  public img = ImgPath;
+
+  protected mainMenu: IMainMenuType[] = mainMenuConfig;
+  protected router = inject(Router);
+
+  protected router_events = toSignal(
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      tap((event) => {
+        let selectManu = this.mainMenu.find(item => event.urlAfterRedirects.includes(item.rout) );
+        if (selectManu) selectManu.isSelect = true;        
+      })
+    )
+  );
+
+  onClickManu(item: IMainMenuType) {
+    if (item.isSelect) return;
+    this.mainMenu.forEach(i => i.isSelect = false);    
+    this.router.navigate([item.rout]);
+  }
+
 }
