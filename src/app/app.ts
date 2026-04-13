@@ -1,7 +1,7 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ImgPath, mainMenuConfig } from './models/constants';
+import { Component, inject } from '@angular/core';
+import { mainMenuConfig } from './models/constants';
 import { ToastsComponent } from "./components/toasts-component/toasts-component";
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from "@angular/router";
+import { NavigationEnd, Router, RouterOutlet } from "@angular/router";
 import { IMainMenuType } from './models/interfaces';
 import { filter, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
