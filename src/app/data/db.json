@@ -4,19 +4,19 @@
       "id": "1",
       "text": "Задача 1",
       "description": "Описание задачи 1",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": "2",
       "text": "Задача 2",
       "description": "Описание задачи 2",
-      "status": "Completed"
+      "status": "InProgress"
     },
     {
       "id": "3",
       "text": "Задача 3",
       "description": "Описание задачи 2",
-      "status": "InProgress"
+      "status": "Completed"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

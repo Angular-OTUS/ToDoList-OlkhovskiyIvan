@@ -22,7 +22,7 @@
                                     <li>
                                         <app-todo-item 
                                             [taskName]="item.text"
-                                            [isSelect]="selectedItemId() === item.id"
+                                            [isSelect]="selectedItemId() === item.id.toString()"
                                             (delTask)="onDelTask(item.id)"
                                             (updateTask)="onChangeName($event, item.id)"
                                             (clickTask)="onClickTask(item.id)">
@@ -43,7 +43,7 @@
             </div>
         </div>        
     </div>
-    @if (selectedItemId()) {
+    @if (selectedItem()) {
         <div class="tdl-right-side">
             <div class="tdl-header">     
             </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, OnInit, OnDestroy, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, OnInit, OnDestroy, signal, WritableSignal, input } from '@angular/core';
 import { TodoItem } from "../todo-item/todo-item";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -14,6 +14,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { TodoCreateItem } from "../todo-create-item/todo-create-item";
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-to-do-list',
@@ -28,25 +29,25 @@ export class ToDoList implements OnInit, OnDestroy {
   protected isLoading = signal(true);
   protected img = ImgPath;
   protected selectItemFilter: StatusTaskTypes | null = null;
-  protected statusTaskTypes = StatusTaskTypes;
-  protected selectedItemId: WritableSignal<number | undefined> = signal(undefined);
+  protected statusTaskTypes = StatusTaskTypes;  
+  readonly selectedItemId = input.required<string>();
   protected selectedItem = computed(() => 
-    this.toDoListTask().find(item => item.id === this.selectedItemId())
+    this.toDoListTask().find(item => item.id.toString() === this.selectedItemId())
   );
   protected subscriptions: Subscription[] = [];
-  protected toDoListTask: WritableSignal<ITaskType[]> = signal([]);
+  protected toDoListTask: WritableSignal<ITaskType[]> = signal([]);  
 
 
   constructor(private toDoListService:ToDoListService, 
               private restService: RestService,
+              private router: Router,
               private toastService: ToastService) {
 
               }
 
   ngOnInit(): void {
-
-    this.loadToDoListTask(this.selectItemFilter);
     
+    this.loadToDoListTask(this.selectItemFilter);
   }
 
   ngOnDestroy() {
@@ -55,8 +56,7 @@ export class ToDoList implements OnInit, OnDestroy {
 
   loadToDoListTask(filterValue: StatusTaskTypes | null) {
 
-    this.selectItemFilter = filterValue;
-    this.selectedItemId.set(undefined);
+    this.selectItemFilter = filterValue;        
     this.isLoading.set(true);
     const sub = this.restService.getTasks(this.selectItemFilter).subscribe((result) => {
       this.toDoListTask.set(result);
@@ -73,15 +73,15 @@ export class ToDoList implements OnInit, OnDestroy {
   onDelTask(id: number) {   
     this.isLoading.set(true);
     const sub = this.restService.delTask(id).subscribe(() => {
-      this.toDoListTask.set(this.toDoListService.delItem(id));
-      if (this.selectedItemId() === id) this.selectedItemId.set(undefined);
+      this.toDoListTask.set(this.toDoListService.delItem(id));      
       this.isLoading.set(false);
+      this.router.navigate(['tasks']);
     });
     this.subscriptions.push(sub);
   }
 
-  onClickTask(id: number) {
-    this.selectedItemId.set(id);
+  onClickTask(id: number) {    
+    this.router.navigate(['tasks', id.toString()]);
   }
 
 
