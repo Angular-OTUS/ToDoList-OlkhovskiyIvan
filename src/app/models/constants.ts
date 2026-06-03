@@ -40,9 +40,9 @@ export enum StatusTaskTypes {
 }
 
 export const mainMenuConfig:IMainMenuType[] = [
-      {index:0, isSelect:false, name:"overview_pages_4", mainIimg: ImgPath.overview_pages_4, selectImg: ImgPath.overview_pages_select, rout:"backlog"},
-      {index:1, isSelect:false, name:"column", mainIimg: ImgPath.column, selectImg: ImgPath.column_select, rout:"board"},
-      {index:2, isSelect:false, name:"apple_user", mainIimg: ImgPath.apple_user, selectImg: ImgPath.apple_user_select, rout:""},
-      {index:3, isSelect:false, name:"control_panel", mainIimg: ImgPath.control_panel, selectImg: ImgPath.control_panel_select, rout:""},
-      {index:4, isSelect:false, name:"settings", mainIimg: ImgPath.settings, selectImg: ImgPath.settings_select, rout:""}
+      {index:0, isSelect:false, name:"overview_pages_4", mainImg: ImgPath.overview_pages_4, selectImg: ImgPath.overview_pages_select, rout:"backlog"},
+      {index:1, isSelect:false, name:"column", mainImg: ImgPath.column, selectImg: ImgPath.column_select, rout:"board"},
+      {index:2, isSelect:false, name:"apple_user", mainImg: ImgPath.apple_user, selectImg: ImgPath.apple_user_select, rout:""},
+      {index:3, isSelect:false, name:"control_panel", mainImg: ImgPath.control_panel, selectImg: ImgPath.control_panel_select, rout:""},
+      {index:4, isSelect:false, name:"settings", mainImg: ImgPath.settings, selectImg: ImgPath.settings_select, rout:""}
     ];

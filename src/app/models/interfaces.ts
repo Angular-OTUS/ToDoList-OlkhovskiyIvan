@@ -22,7 +22,7 @@ export interface IMainMenuType {
     index:      number;
     name:       string;
     isSelect:   boolean;
-    mainIimg:   ImgPath;
+    mainImg:   ImgPath;
     selectImg:  ImgPath;
     rout:       string;
 }
