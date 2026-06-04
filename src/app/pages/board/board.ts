@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, OnInit, OnDestroy, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, OnDestroy, signal, WritableSignal, DestroyRef } from '@angular/core';
 import { TodoItem } from "../../components/todo-item/todo-item";
 import { MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -14,6 +14,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -23,38 +24,31 @@ import {
   templateUrl: './board.html',
   styleUrl: './board.scss',
 })
-export class Board implements OnInit, OnDestroy {
+export class Board implements OnInit {
 
-  protected isLoading = signal(true);
-  protected subscriptions: Subscription[] = [];
+  protected isLoading = signal(true);  
 
   protected progressTask: WritableSignal<ITaskType[]> = signal([]);  
   protected completedTask: WritableSignal<ITaskType[]> = signal([]);  
 
 
-  constructor(private restService: RestService,
-              private toastService: ToastService) {
-
-              }
+  private restService = inject(RestService);
+  private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef); 
 
   ngOnInit(): void {
     this.loadToDoListTask();
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
   loadToDoListTask() {
 
     this.isLoading.set(true);
-    const sub = this.restService.getTasks(null).subscribe((result) => {
+    this.restService.getTasks(null).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
 
-      this.progressTask.set(result.filter(item => item.status == StatusTaskTypes.inProgress));
-      this.completedTask.set(result.filter(item => item.status == StatusTaskTypes.completed));
+      this.progressTask.set(result.filter(item => item.status === StatusTaskTypes.inProgress));
+      this.completedTask.set(result.filter(item => item.status === StatusTaskTypes.completed));
       this.isLoading.set(false);
-    });
-    this.subscriptions.push(sub);
+    });    
   }
 
   onDropItem(dropEvent: CdkDragDrop<ITaskType[],ITaskType[],any>) {
@@ -63,8 +57,8 @@ export class Board implements OnInit, OnDestroy {
       moveItemInArray(dropEvent.container.data, dropEvent.previousIndex, dropEvent.currentIndex);
     } else {
       
-      let dropItem = dropEvent.previousContainer.data[dropEvent.previousIndex];
-      dropItem.status = dropItem.status == StatusTaskTypes.completed ? StatusTaskTypes.inProgress : StatusTaskTypes.completed
+      const dropItem = dropEvent.previousContainer.data[dropEvent.previousIndex];
+      dropItem.status = dropItem.status === StatusTaskTypes.completed ? StatusTaskTypes.inProgress : StatusTaskTypes.completed
       this.onChangeStatus(dropItem);
 
       transferArrayItem(
@@ -78,10 +72,9 @@ export class Board implements OnInit, OnDestroy {
 
   onChangeStatus(item: ITaskType) {
 
-    const sub = this.restService.updateTask(item.id, item).subscribe(() => {
-      if (item.status == StatusTaskTypes.completed) this.toastService.show("Задача успешно выполнена!", MessageTypes.info)
-    });
-    this.subscriptions.push(sub);
+    this.restService.updateTask(item.id, item).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      if (item.status === StatusTaskTypes.completed) this.toastService.show("Задача успешно выполнена!", MessageTypes.info)
+    });    
   }
 
 }

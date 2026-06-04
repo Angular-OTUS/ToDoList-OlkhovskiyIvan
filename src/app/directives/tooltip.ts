@@ -1,4 +1,4 @@
-import { Directive, ElementRef, input, InputSignal, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, input, InputSignal, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appTooltip]',
@@ -16,7 +16,8 @@ export class Tooltip {
   private tooltipElement!: HTMLElement | null;
   private timeOut!: number | null;
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2) { }
+  private elRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
 
   ngOnDestroy() {
     this.tooltipDel();

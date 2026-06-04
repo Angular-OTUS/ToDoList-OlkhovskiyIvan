@@ -16,7 +16,7 @@ export class RestService {
 
   public getTasks(status: StatusTaskTypes | null): Observable<ITaskType[]> {
 
-    let filter = status ? '?status:eq=' + status : '';
+    const filter = status ? '?status:eq=' + status : '';
 
     return this.http.get<ITaskType[]>(configuration.restUrl + "tasks" + filter).pipe(catchError(() => {
       this.toastService.show("Сервис не доступен", MessageTypes.error);

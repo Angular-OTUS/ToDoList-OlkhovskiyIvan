@@ -1,4 +1,4 @@
-import { Component, OnDestroy, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, output } from '@angular/core';
 import { ButtonComponent } from "../button-component/button-component";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { NgOptimizedImage } from '@angular/common';
@@ -9,31 +9,26 @@ import { ToDoListService } from '../../services/to-do-list-service';
 import { ToastService } from '../../services/toast-service';
 import { RestService } from '../../services/rest-service';
 import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-todo-create-item',
   imports: [ButtonComponent, NgOptimizedImage, FormsModule, MatInputModule,],
   templateUrl: './todo-create-item.html',
   styleUrl: './todo-create-item.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TodoCreateItem implements OnDestroy {
+export class TodoCreateItem {
 
   protected buttonType = ButtonTypes;
   protected img = ImgPath;
   protected newTask: INewTaskType = { text: '', description: '' };
   public addTask = output<ITaskType>();  
-  protected subscriptions: Subscription[] = [];
 
-  constructor(private toDoListService:ToDoListService, 
-              private restService: RestService,
-              private toastService: ToastService) {
-
-              }
-
-
-  ngOnDestroy() {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+  private toDoListService = inject(ToDoListService);
+  private restService = inject(RestService);
+  private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef); 
 
   onSubmit(form: NgForm) {
 
@@ -46,13 +41,12 @@ export class TodoCreateItem implements OnDestroy {
       status: StatusTaskTypes.inProgress
     }
 
-    const sub = this.restService.createTask(newItem).subscribe(() => {
+    this.restService.createTask(newItem).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
 
       this.addTask.emit(newItem);
       this.toastService.show("Новая задача успешно добавлена в список дел!", MessageTypes.info);
       form.resetForm();
     });      
-    this.subscriptions.push(sub);
   }
   
 }

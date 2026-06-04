@@ -18,7 +18,7 @@
                     <div class="tdl-content-body">
                         <div class="tdl-body-scroll">
                             <ul>
-                                @for (item of toDoListTask(); track item.id) {
+                                @for (item of toDoListService.tasks(); track item.id) {
                                     <li>
                                         <app-todo-item 
                                             [taskName]="item.text"

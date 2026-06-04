@@ -1,13 +1,13 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
 
 @Directive({
   selector: '[appAutoselect]',
 })
 export class Autoselect implements AfterViewInit {
 
-  constructor(private el: ElementRef) {}
+  private el = inject(ElementRef);
 
-  ngAfterViewInit() {    
+  ngAfterViewInit() {
     this.el.nativeElement.select();
   }
 

@@ -21,7 +21,7 @@ export class App {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       tap((event) => {
-        let selectMenu = this.mainMenu.find(item => event.urlAfterRedirects.includes(item.rout) );
+        const selectMenu = this.mainMenu.find(item => event.urlAfterRedirects.includes(item.rout) );
         if (selectMenu) selectMenu.isSelect = true;        
       })
     )
