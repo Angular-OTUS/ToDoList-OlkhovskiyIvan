@@ -1,8 +1,9 @@
 <div
     [appTooltip]="'Показать детали задачи'"
     [delayTooltip]=1000
+    [visibleTooltip]="isEditTask()"
     (click)="clickTask.emit()" 
-    (dblclick)="this.isEdit.set(true)"
+    (dblclick)="onDblclickTask()"
     class="tdi-list-item" 
     [class.tdi-list-item-select]="isSelect()">
 
@@ -19,7 +20,6 @@
     }
     <div class="tdi-item-actions">
 
-
         @if (isEdit()) {         
             <app-button-component 
                 tooltipText="Сохранить наименование"
@@ -30,8 +30,9 @@
             </app-button-component>     
         } @else { 
             <app-button-component 
-                tooltipText="Удаление задачи"
+                tooltipText="Удаление задачи"                
                 [type]="buttonType.flat"
+                [disable]="!isEditTask()"
                 (clickButton)="onClickButton($event)">
 
                 <img [ngSrc]="img.delete" alt="Удаление задачи" width="52" height="26">

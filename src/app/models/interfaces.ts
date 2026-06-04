@@ -1,4 +1,4 @@
-import { MessageTypes, StatusTaskTypes } from "./constants";
+import { ImgPath, MessageTypes, StatusTaskTypes } from "./constants";
 
 export interface ITaskType {
     id:             number;
@@ -16,4 +16,13 @@ export interface IToastType {
     index:      number;
     message:    string;
     type:       MessageTypes;
+}
+
+export interface IMainMenuType {  
+    index:      number;
+    name:       string;
+    isSelect:   boolean;
+    mainIimg:   ImgPath;
+    selectImg:  ImgPath;
+    rout:       string;
 }

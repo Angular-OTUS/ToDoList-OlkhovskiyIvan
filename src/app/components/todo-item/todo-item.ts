@@ -16,12 +16,14 @@ import { ToastService } from '../../services/toast-service';
 })
 export class TodoItem implements OnInit {
 
+
   protected buttonType = ButtonTypes;
   protected img = ImgPath;
-  protected isEdit: WritableSignal<boolean> = signal(false);    
+  protected isEdit: WritableSignal<boolean> = signal(false);        
   public taskName: InputSignal<string> = input.required<string>();
   protected newTaskName: string = "";
-  public isSelect: InputSignal<boolean> = input<boolean>(false);
+  public isSelect: InputSignal<boolean> = input<boolean>(false);  
+  public isEditTask: InputSignal<boolean> = input<boolean>(true);  
   public delTask = output();
   public clickTask = output();  
   public updateTask = output<string>();  
@@ -35,6 +37,11 @@ export class TodoItem implements OnInit {
   onClickButton(event: PointerEvent) {
     this.delTask.emit();
     event.stopPropagation();    
+  }
+
+  onDblclickTask() {
+    if (!this.isEditTask()) return;
+    this.isEdit.set(true);
   }
 
   keypressTask(event: KeyboardEvent, value: string) {

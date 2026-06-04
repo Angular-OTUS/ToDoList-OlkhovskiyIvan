@@ -3,20 +3,24 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'tasks',
+        redirectTo: 'board',
         pathMatch:'full'
     },
     {
-        path: 'tasks',
-        loadComponent: ()=>import('./components/to-do-list/to-do-list').then(c => c.ToDoList)       
+        path: 'backlog',
+        loadComponent: ()=>import('./pages/backlog/backlog').then(c => c.Backlog),   
     },
     {
-        path: 'tasks/:selectedItemId',
-        loadComponent: ()=>import('./components/to-do-list/to-do-list').then(c => c.ToDoList)       
+        path: 'backlog/:selectedItemId',
+        loadComponent: ()=>import('./pages/backlog/backlog').then(c => c.Backlog)       
+    },    
+    {
+        path: 'board',
+        loadComponent: ()=>import('./pages/board/board').then(c => c.Board)       
     },
     {
         path: '**',
-        redirectTo: 'tasks',
+        redirectTo: 'board',
         pathMatch: 'full'
     }
 ];
