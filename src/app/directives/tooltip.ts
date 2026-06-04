@@ -1,4 +1,4 @@
-import { Directive, ElementRef, input, InputSignal, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, input, InputSignal, Renderer2, OnDestroy } from '@angular/core';
 
 @Directive({
   selector: '[appTooltip]',
@@ -7,7 +7,7 @@ import { Directive, ElementRef, input, InputSignal, Renderer2 } from '@angular/c
     '(mouseleave)': 'tooltipDel()',
   },  
 })
-export class Tooltip {
+export class Tooltip implements OnDestroy {
 
 
   public appTooltip: InputSignal<string> = input.required<string>();
@@ -16,7 +16,8 @@ export class Tooltip {
   private tooltipElement!: HTMLElement | null;
   private timeOut!: number | null;
 
-  constructor(private elRef: ElementRef, private renderer: Renderer2) { }
+  private elRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
 
   ngOnDestroy() {
     this.tooltipDel();

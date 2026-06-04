@@ -7,7 +7,7 @@ import { IToastType } from '../models/interfaces';
 })
 export class ToastService {
   private toastText: WritableSignal<IToastType[]> = signal([]); 
-  private index: number = 0;
+  private index = 0;
 
   show(message: string, type?: MessageTypes, duration?: number) {
     

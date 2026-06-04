@@ -1,35 +1,37 @@
 import { Injectable } from '@angular/core';
-import { INewTaskType, ITaskType } from '../models/interfaces';
-import { StatusTaskTypes } from '../models/constants';
+import { ITaskType } from '../models/interfaces';
+import { signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToDoListService {
-  
-  private toDoListTask: ITaskType[] = [];
 
-  public initList(taskList:ITaskType[]): void {
-    this.toDoListTask = taskList;
+  private toDoListTask = signal<ITaskType[]>([]);
+  readonly tasks = this.toDoListTask.asReadonly();
+
+  public initList(taskList: ITaskType[]): void {
+    this.toDoListTask.set(taskList);
   }
 
   public getItem(id: number): ITaskType | undefined {
-
-    return this.toDoListTask.find(item => item.id === id);
+    return this.toDoListTask().find(item => item.id === id);
   }
 
-  public addItem(task: ITaskType): ITaskType[] {
-
-    this.toDoListTask.push(task);
-    return this.toDoListTask;
+  public addItem(task: ITaskType): void {
+    this.toDoListTask.update(list => [...list, task]);
   }
 
-  public delItem(id: number): ITaskType[] {
-    this.toDoListTask = this.toDoListTask.filter(item => item.id != id);
-    return this.toDoListTask;
+  public delItem(id: number): void {
+    this.toDoListTask.update(list => list.filter(item => item.id !== id));
   }
 
-  public getNewID():number {
-    return this.toDoListTask.length === 0 ? 0 : Math.max(...this.toDoListTask.map(obj => obj.id));
+  public getNewID(): number {
+    const list = this.toDoListTask();
+    return list.length === 0 ? 0 : Math.max(...list.map(obj => obj.id));
+  }
+
+  public refreshItems(): void {
+    this.toDoListTask.update(list => [...list]);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, computed, signal, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ToastService } from '../../services/toast-service';
 import { NgOptimizedImage } from '@angular/common';
 import { ImgPath, MessageTypes } from '../../models/constants';
@@ -8,13 +8,14 @@ import { ImgPath, MessageTypes } from '../../models/constants';
   imports: [NgOptimizedImage],
   templateUrl: './toasts-component.html',
   styleUrl: './toasts-component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastsComponent {
 
   protected imgPath = ImgPath;  
   protected messageType = MessageTypes;  
+  private toastService = inject(ToastService);
   protected toastMessage = computed(() => this.toastService.getToast()());
-  constructor(private toastService: ToastService) { }
 
   getImg(type:MessageTypes):ImgPath {
     switch(type) {

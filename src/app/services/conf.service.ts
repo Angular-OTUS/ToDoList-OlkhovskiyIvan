@@ -1,5 +1,5 @@
 export const configuration = {
-  restUrl:'http://localhost:3000/'
+  restUrl:'http://localhost:3000/',
 }
 
 

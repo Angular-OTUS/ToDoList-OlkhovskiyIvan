@@ -16,7 +16,7 @@ export class RestService {
 
   public getTasks(status: StatusTaskTypes | null): Observable<ITaskType[]> {
 
-    let filter = status ? '?status:eq=' + status : '';
+    const filter = status ? '?status:eq=' + status : '';
 
     return this.http.get<ITaskType[]>(configuration.restUrl + "tasks" + filter).pipe(catchError(() => {
       this.toastService.show("Сервис не доступен", MessageTypes.error);
@@ -24,22 +24,22 @@ export class RestService {
     }));
   }
 
-  public updateTask(id: number, item: ITaskType): Observable<any> {
-    return this.http.put(configuration.restUrl + "tasks/" + id.toString(), item).pipe(catchError(() => {
+  public updateTask(id: number, item: ITaskType): Observable<void> {
+    return this.http.put<void>(configuration.restUrl + "tasks/" + id.toString(), item).pipe(catchError(() => {
       this.toastService.show("Сервис не доступен", MessageTypes.error);
       return EMPTY;
     }));
   }
 
-  public createTask(newItem: ITaskType): Observable<any> {
-    return this.http.post(configuration.restUrl + "tasks", newItem).pipe(catchError(() => {
+  public createTask(newItem: ITaskType): Observable<ITaskType> {
+    return this.http.post<ITaskType>(configuration.restUrl + "tasks", newItem).pipe(catchError(() => {
       this.toastService.show("Сервис не доступен", MessageTypes.error);
       return EMPTY;
     }));
   }
 
-  public delTask(id: number): Observable<any> {
-    return this.http.delete(configuration.restUrl + "tasks/" + id.toString()).pipe(catchError(() => {
+  public delTask(id: number): Observable<void> {
+    return this.http.delete<void>(configuration.restUrl + "tasks/" + id.toString()).pipe(catchError(() => {
       this.toastService.show("Сервис не доступен", MessageTypes.error);
       return EMPTY;
     }));

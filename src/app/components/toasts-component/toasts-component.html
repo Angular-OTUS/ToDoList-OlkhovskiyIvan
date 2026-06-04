@@ -19,7 +19,7 @@
                         {{ item.message }}
                     </div>
                 </div>
-                <div (click)="closeMessage(item.index)" class="tc-item-control">
+                <div (click)="closeMessage(item.index)" (keydown.enter)="closeMessage(item.index)" tabindex="0" class="tc-item-control" role="button" aria-label="Закрыть">
                     <img [ngSrc]="imgPath.close" alt="close" width="15" height="15">
                 </div>
             </div>

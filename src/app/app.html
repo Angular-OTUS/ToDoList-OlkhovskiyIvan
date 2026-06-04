@@ -1,12 +1,14 @@
 <div class="app-main app-gradient-border">
   <div class="app-menu">
     @for (item of mainMenu; track item.index) {
-      <div 
-        class="app-menu-item" 
-        (click)="onClickManu(item)"
+      <div
+        class="app-menu-item"
+        tabindex="0"
+        (click)="onClickMenu(item)"
+        (keydown.enter)="onClickMenu(item)"
         [class.app-item-select]="item.isSelect">
 
-        <img [src]="item.isSelect?item.selectImg:item.mainIimg" [alt]="item.name">
+        <img [src]="item.isSelect?item.selectImg:item.mainImg" [alt]="item.name">
       </div>
     }
   </div>
