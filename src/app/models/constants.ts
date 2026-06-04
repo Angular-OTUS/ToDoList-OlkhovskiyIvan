@@ -44,5 +44,5 @@ export const mainMenuConfig:IMainMenuType[] = [
       {index:1, isSelect:false, name:"column", mainImg: ImgPath.column, selectImg: ImgPath.column_select, rout:"board"},
       {index:2, isSelect:false, name:"apple_user", mainImg: ImgPath.apple_user, selectImg: ImgPath.apple_user_select, rout:""},
       {index:3, isSelect:false, name:"control_panel", mainImg: ImgPath.control_panel, selectImg: ImgPath.control_panel_select, rout:""},
-      {index:4, isSelect:false, name:"settings", mainImg: ImgPath.settings, selectImg: ImgPath.settings_select, rout:""}
+      {index:4, isSelect:false, name:"settings", mainImg: ImgPath.settings, selectImg: ImgPath.settings_select, rout:""},
     ];

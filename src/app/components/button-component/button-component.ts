@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, input, InputSignal, output, Signal } from '@angular/core';
-import { ButtonTypes, ImgPath } from '../../models/constants';
+import { ChangeDetectionStrategy, Component, input, InputSignal, output } from '@angular/core';
+import { ButtonTypes } from '../../models/constants';
 import { Tooltip } from '../../directives/tooltip';
 
 @Component({

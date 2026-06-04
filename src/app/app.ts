@@ -23,8 +23,8 @@ export class App {
       tap((event) => {
         const selectMenu = this.mainMenu.find(item => event.urlAfterRedirects.includes(item.rout) );
         if (selectMenu) selectMenu.isSelect = true;        
-      })
-    )
+      }),
+    ),
   );
 
   onClickMenu(item: IMainMenuType) {

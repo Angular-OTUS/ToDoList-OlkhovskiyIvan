@@ -4,7 +4,7 @@ export const routes: Routes = [
     {
         path: '',
         redirectTo: 'board',
-        pathMatch:'full'
+        pathMatch:'full',
     },
     {
         path: 'backlog',
@@ -12,15 +12,15 @@ export const routes: Routes = [
     },
     {
         path: 'backlog/:selectedItemId',
-        loadComponent: ()=>import('./pages/backlog/backlog').then(c => c.Backlog)       
+        loadComponent: ()=>import('./pages/backlog/backlog').then(c => c.Backlog),       
     },    
     {
         path: 'board',
-        loadComponent: ()=>import('./pages/board/board').then(c => c.Board)       
+        loadComponent: ()=>import('./pages/board/board').then(c => c.Board),       
     },
     {
         path: '**',
         redirectTo: 'board',
-        pathMatch: 'full'
-    }
+        pathMatch: 'full',
+    },
 ];

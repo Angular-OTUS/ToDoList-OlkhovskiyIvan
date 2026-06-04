@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, OnDestroy, signal, input, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, input, DestroyRef } from '@angular/core';
 import { TodoItem } from "../../components/todo-item/todo-item";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -13,7 +13,6 @@ import { RestService } from '../../services/rest-service';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { TodoCreateItem } from "../../components/todo-create-item/todo-create-item";
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -33,7 +32,7 @@ export class Backlog implements OnInit {
   protected statusTaskTypes = StatusTaskTypes;
   readonly selectedItemId = input.required<string>();
   protected selectedItem = computed(() =>
-    this.toDoListService.tasks().find(item => item.id.toString() === this.selectedItemId())
+    this.toDoListService.tasks().find(item => item.id.toString() === this.selectedItemId()),
   );
   private destroyRef = inject(DestroyRef); 
 

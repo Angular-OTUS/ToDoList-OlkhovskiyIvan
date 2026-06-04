@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, OnDestroy, signal, WritableSignal, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal, DestroyRef } from '@angular/core';
 import { TodoItem } from "../../components/todo-item/todo-item";
 import { MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
 import { ToastService } from '../../services/toast-service';
 import { Spinner } from "../../components/spinner/spinner";
 import { RestService } from '../../services/rest-service';
-import { Subscription } from 'rxjs';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -51,7 +50,7 @@ export class Board implements OnInit {
     });    
   }
 
-  onDropItem(dropEvent: CdkDragDrop<ITaskType[],ITaskType[],any>) {
+  onDropItem(dropEvent: CdkDragDrop<ITaskType[],ITaskType[],ITaskType>) {
 
     if (dropEvent.previousContainer === dropEvent.container) {
       moveItemInArray(dropEvent.container.data, dropEvent.previousIndex, dropEvent.currentIndex);

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INewTaskType, ITaskType } from '../models/interfaces';
-import { StatusTaskTypes } from '../models/constants';
+import { ITaskType } from '../models/interfaces';
 import { signal } from '@angular/core';
 
 @Injectable({

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnDestroy, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, output } from '@angular/core';
 import { ButtonComponent } from "../button-component/button-component";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { NgOptimizedImage } from '@angular/common';
@@ -8,15 +8,14 @@ import { INewTaskType, ITaskType } from '../../models/interfaces';
 import { ToDoListService } from '../../services/to-do-list-service';
 import { ToastService } from '../../services/toast-service';
 import { RestService } from '../../services/rest-service';
-import { Subscription } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-todo-create-item',
-  imports: [ButtonComponent, NgOptimizedImage, FormsModule, MatInputModule,],
+  imports: [ButtonComponent, NgOptimizedImage, FormsModule, MatInputModule],
   templateUrl: './todo-create-item.html',
   styleUrl: './todo-create-item.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoCreateItem {
 
@@ -38,7 +37,7 @@ export class TodoCreateItem {
       id: this.toDoListService.getNewID() + 1,
       text: this.newTask.text,
       description: this.newTask.description,
-      status: StatusTaskTypes.inProgress
+      status: StatusTaskTypes.inProgress,
     }
 
     this.restService.createTask(newItem).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {

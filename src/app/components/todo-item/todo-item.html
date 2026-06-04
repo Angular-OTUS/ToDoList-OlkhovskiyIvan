@@ -2,9 +2,11 @@
     [appTooltip]="'Показать детали задачи'"
     [delayTooltip]=1000
     [visibleTooltip]="isEditTask()"
-    (click)="clickTask.emit()" 
+    tabindex="0"
+    (click)="clickTask.emit()"
+    (keydown.enter)="clickTask.emit()"
     (dblclick)="onDblclickTask()"
-    class="tdi-list-item" 
+    class="tdi-list-item"
     [class.tdi-list-item-select]="isSelect()">
 
     <div class="tdi-item-img">

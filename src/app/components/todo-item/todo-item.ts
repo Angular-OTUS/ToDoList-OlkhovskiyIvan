@@ -21,7 +21,7 @@ export class TodoItem implements OnInit {
   protected img = ImgPath;
   protected isEdit: WritableSignal<boolean> = signal(false);        
   public taskName: InputSignal<string> = input.required<string>();
-  protected newTaskName: string = "";
+  protected newTaskName = "";
   public isSelect: InputSignal<boolean> = input<boolean>(false);  
   public isEditTask: InputSignal<boolean> = input<boolean>(true);  
   public delTask = output();

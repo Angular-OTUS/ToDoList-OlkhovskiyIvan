@@ -58,13 +58,13 @@
 </div>
 
 <mat-menu #menu="matMenu">
-  <div (click)="loadToDoListTask(null)" [class.tdl-select-item-filter]="selectItemFilter === null" mat-menu-item>
+  <div (click)="loadToDoListTask(null)" (keydown.enter)="loadToDoListTask(null)" tabindex="0" [class.tdl-select-item-filter]="selectItemFilter === null" mat-menu-item>
     <span>Все задачи</span>
   </div>
-  <div (click)="loadToDoListTask(statusTaskTypes.completed)" [class.tdl-select-item-filter]="selectItemFilter === statusTaskTypes.completed" mat-menu-item>
+  <div (click)="loadToDoListTask(statusTaskTypes.completed)" (keydown.enter)="loadToDoListTask(statusTaskTypes.completed)" tabindex="0" [class.tdl-select-item-filter]="selectItemFilter === statusTaskTypes.completed" mat-menu-item>
     <span>Выполненые задачи</span>
   </div>
-  <div (click)="loadToDoListTask(statusTaskTypes.inProgress)" [class.tdl-select-item-filter]="selectItemFilter === statusTaskTypes.inProgress" mat-menu-item>
+  <div (click)="loadToDoListTask(statusTaskTypes.inProgress)" (keydown.enter)="loadToDoListTask(statusTaskTypes.inProgress)" tabindex="0" [class.tdl-select-item-filter]="selectItemFilter === statusTaskTypes.inProgress" mat-menu-item>
     <span>Невыполненные задачи</span>
   </div>
 </mat-menu>
