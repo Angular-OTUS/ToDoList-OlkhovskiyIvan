@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, input, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal, input, DestroyRef } from '@angular/core';
 import { TodoItem } from "../../components/todo-item/todo-item";
 import { ButtonTypes, ImgPath, MessageTypes, StatusTaskTypes } from '../../models/constants';
 import { ITaskType } from '../../models/interfaces';
@@ -14,7 +14,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { TodoCreateItem } from "../../components/todo-create-item/todo-create-item";
 import { Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal, toObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'app-backlog',
@@ -25,43 +26,48 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class Backlog implements OnInit {
 
-  protected buttonType = ButtonTypes;
-  protected isLoading = signal(true);
-  protected img = ImgPath;
-  protected selectItemFilter: StatusTaskTypes | null = null;
-  protected statusTaskTypes = StatusTaskTypes;
-  readonly selectedItemId = input.required<string>();
-  protected selectedItem = computed(() =>
-    this.toDoListService.tasks().find(item => item.id.toString() === this.selectedItemId()),
-  );
-  private destroyRef = inject(DestroyRef); 
-
-
+  private destroyRef = inject(DestroyRef);
   protected toDoListService = inject(ToDoListService);
   private restService = inject(RestService);
   private router = inject(Router);
   private toastService = inject(ToastService);
 
-  ngOnInit(): void {
+  protected buttonType = ButtonTypes;
+  protected isLoading = signal(true);
+  protected img = ImgPath;
+  protected statusTaskTypes = StatusTaskTypes;
+  readonly selectedItemId = input.required<string>();
 
-    this.loadToDoListTask(this.selectItemFilter);
+  protected tasks = toSignal(this.toDoListService.filteredTasks$, { initialValue: [] as ITaskType[] });
+  private selectedItemId$ = toObservable(this.selectedItemId);
+  protected selectedItem = toSignal(
+    combineLatest([this.toDoListService.tasks$, this.selectedItemId$]).pipe(
+      map(([tasks, id]) => tasks.find(item => item.id.toString() === id)),
+    ),
+    { initialValue: undefined },
+  );
+
+  ngOnInit(): void {
+    this.loadTasks();
   }
 
-  loadToDoListTask(filterValue: StatusTaskTypes | null) {
-
-    this.selectItemFilter = filterValue;
+  loadTasks(): void {
     this.isLoading.set(true);
-    this.restService.getTasks(this.selectItemFilter).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
-      this.toDoListService.initList(result);
+    this.restService.getTasks(null).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((result) => {
+      this.toDoListService.setTasks(result);
       this.isLoading.set(false);
     });
   }
 
-  onAddTask(task: ITaskType) {
+  onFilterChange(filter: StatusTaskTypes | null): void {
+    this.toDoListService.setFilter(filter);
+  }
+
+  onAddTask(task: ITaskType): void {
     this.toDoListService.addItem(task);
   }
 
-  onDelTask(id: number) {
+  onDelTask(id: number): void {
     this.isLoading.set(true);
     this.restService.delTask(id).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
       this.toDoListService.delItem(id);
@@ -70,37 +76,32 @@ export class Backlog implements OnInit {
     });
   }
 
-  onClickTask(id: number) {
+  onClickTask(id: number): void {
     this.router.navigate(['backlog', id.toString()]);
   }
 
-
-  onChangeName(event: string, id: number) {
-
-    const item: ITaskType | undefined = this.toDoListService.getItem(id);
-    if (!item) return;
-    item.text = event;
-
+  onChangeName(newName: string, id: number): void {
     this.isLoading.set(true);
-    this.restService.updateTask(id, item).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.toDoListService.refreshItems();
+    const item = this.toDoListService.getItem(id);
+    if (!item) return;
+    this.restService.updateTask(id, { ...item, text: newName }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.toDoListService.updateItem(id, { text: newName });
       this.toastService.show("Наименование задачи успешно обновлено!", MessageTypes.info);
       this.isLoading.set(false);
     });
   }
 
-  onChangeStatus(event: StatusTaskTypes) {
-
+  onChangeStatus(event: StatusTaskTypes): void {
     const id = this.selectedItem()?.id;
-    if(!id) return;
-    const item: ITaskType | undefined = this.toDoListService.getItem(id);
-    if (!item) return;
-    item.status = event;
-
+    if (!id) return;
     this.isLoading.set(true);
-    this.restService.updateTask(id, item).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-      this.toDoListService.refreshItems();
-      if (event === StatusTaskTypes.completed) this.toastService.show("Задача успешно выполнена!", MessageTypes.info)
+    const item = this.toDoListService.getItem(id);
+    if (!item) return;
+    this.restService.updateTask(id, { ...item, status: event }).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+      this.toDoListService.updateItem(id, { status: event });
+      if (event === StatusTaskTypes.completed) {
+        this.toastService.show("Задача успешно выполнена!", MessageTypes.info);
+      }
       this.isLoading.set(false);
     });
   }

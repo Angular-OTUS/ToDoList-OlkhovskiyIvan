@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ToastService } from '../../services/toast-service';
 import { NgOptimizedImage } from '@angular/common';
 import { ImgPath, MessageTypes } from '../../models/constants';
+import { IToastType } from '../../models/interfaces';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-toasts-component',
@@ -15,7 +17,7 @@ export class ToastsComponent {
   protected imgPath = ImgPath;  
   protected messageType = MessageTypes;  
   private toastService = inject(ToastService);
-  protected toastMessage = computed(() => this.toastService.getToast()());
+  protected toastMessage = toSignal(this.toastService.toasts$, { initialValue: [] as IToastType[] });
 
   getImg(type:MessageTypes):ImgPath {
     switch(type) {
