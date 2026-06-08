@@ -1,32 +1,33 @@
-import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { MessageTypes } from '../models/constants';
 import { IToastType } from '../models/interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
-  private toastText: WritableSignal<IToastType[]> = signal([]); 
+  private toastSubject = new BehaviorSubject<IToastType[]>([]);
   private index = 0;
 
-  show(message: string, type?: MessageTypes, duration?: number) {
-    
-    const newMess:IToastType = { 
-      index: this.index++, 
-      message: message, 
-      type: type ? type : MessageTypes.info,      
-    }
+  toasts$: Observable<IToastType[]> = this.toastSubject.asObservable();
 
-    this.toastText.update((toastText) => [...toastText, newMess]);
-    
-    setTimeout(() => this.remove(newMess.index), duration ? duration : 5000);
+  show(message: string, type?: MessageTypes, duration?: number): void {
+
+    const newMess: IToastType = {
+      index: this.index++,
+      message,
+      type: type ?? MessageTypes.info,
+    };
+
+    const current = this.toastSubject.getValue();
+    this.toastSubject.next([...current, newMess]);
+
+    setTimeout(() => this.remove(newMess.index), duration ?? 5000);
   }
 
-  remove(index: number) {
-    this.toastText.update((toastText) => toastText.filter(item => item.index !== index));
-  }
-
-  getToast():Signal<IToastType[]> {
-    return this.toastText.asReadonly();
+  remove(index: number): void {
+    const current = this.toastSubject.getValue();
+    this.toastSubject.next(current.filter(item => item.index !== index));
   }
 }
