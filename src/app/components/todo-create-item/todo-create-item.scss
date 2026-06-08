@@ -1,0 +1,55 @@
+
+
+.tci-footer-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.tci-footer-input {
+    padding: 0.2rem 0.5rem 0rem 0.2rem;
+    flex: auto;
+}
+
+.tci-gradient-border-inset {
+    position: relative;
+    background: linear-gradient(179deg, rgb(198 213 221) 0%, rgb(238 250 253) 100%);
+    border-radius: 0.6rem;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    border-radius: inherit;
+    background-clip: padding-box;
+    border: solid 2px transparent;
+    background-color: #dee8ef;
+  }
+}
+
+.tci-input-body {
+    position: relative;
+    width: 100%;
+}
+
+.tci-input-body input{
+    height: 2.3rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.tci-input-body textarea:focus { outline: none !important; }
+.tci-input-body textarea{
+    resize: block;
+    height: 4rem;
+    background: none !important;
+    border: none !important;
+    width: 100%;
+    color: #5f6874;
+    font-size: 1rem;
+    font-family: system-ui;
+}
+

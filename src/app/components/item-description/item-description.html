@@ -1,6 +1,11 @@
 <div class="id-main">
     <div class="id-title">
-        {{taskItem()?.text}}
+        <div class="id-title-text">{{taskItem()?.text}}</div>
+        <div class="id-title-actions">
+            Статус задачи
+            <mat-slide-toggle (change)="onChange($event)" [checked]="taskItem()?.status === statusTaskTypes.completed">
+            </mat-slide-toggle>
+        </div>        
     </div>
     <div class="id-content">
         <div class="id-content-text">

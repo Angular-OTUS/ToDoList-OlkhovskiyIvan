@@ -1,23 +1,20 @@
 <div class="app-main app-gradient-border">
   <div class="app-menu">
-    <div class="app-menu-item app-item-select">
-      <img [src]="img.overview_pages_4" alt="overview_pages_4">
-    </div>
-    <div class="app-menu-item">
-      <img [src]="img.alarm" alt="alarm">
-    </div>
-    <div class="app-menu-item">
-      <img [src]="img.apple_user" alt="apple_user">
-    </div>
-    <div class="app-menu-item">
-      <img [src]="img.control_panel" alt="control_panel">
-    </div>
-    <div class="app-menu-item">
-      <img [src]="img.shutdown" alt="shutdown">
-    </div>
+    @for (item of mainMenu; track item.index) {
+      <div
+        class="app-menu-item"
+        tabindex="0"
+        (click)="onClickMenu(item)"
+        (keydown.enter)="onClickMenu(item)"
+        [class.app-item-select]="item.isSelect">
+
+        <img [src]="item.isSelect?item.selectImg:item.mainImg" [alt]="item.name">
+      </div>
+    }
   </div>
   <div class="app-content">
-    <app-to-do-list></app-to-do-list>
+      <router-outlet/>
   </div>
   
 </div>
+<app-toasts-component></app-toasts-component>

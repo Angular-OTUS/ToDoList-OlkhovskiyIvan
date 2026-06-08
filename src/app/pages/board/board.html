@@ -1,0 +1,74 @@
+<div class="brd-main">
+  <div class="brd-header">
+      <div class="brd-header-text">
+          <h1>Board</h1> 
+      </div>
+  </div>    
+  <div class="brd-left-side" cdkDropListGroup>
+    <div class="brd-gradient-border">
+        <div class="brd-content">
+            <div class="brd-header">
+                <div class="brd-header-text">
+                    <h1>ToDo ({{progressTask().length}} tasks)</h1> 
+                </div>
+            </div>    
+
+            @if (isLoading()) { 
+                <app-spinner></app-spinner>
+            } @else { 
+                <div class="brd-content-body">
+                    <div class="brd-body-scroll">
+                        <ul cdkDropList
+                          [cdkDropListData]="progressTask()"
+                          (cdkDropListDropped)="onDropItem($event)">
+
+                            @for (item of progressTask(); track item.id) {
+                                <li cdkDrag>
+                                    <app-todo-item 
+                                        [isEditTask]="false"
+                                        [taskName]="item.text">
+                                    </app-todo-item>
+                                </li>                            
+                            }
+                        </ul>   
+                    </div>
+                </div>
+            }               
+
+        </div>
+    </div>       
+    
+    <div class="brd-gradient-border">
+      <div class="brd-content">
+          <div class="brd-header">
+              <div class="brd-header-text">
+                  <h1>Done ({{completedTask().length}} tasks)</h1> 
+              </div>
+          </div>  
+
+          @if (isLoading()) { 
+              <app-spinner></app-spinner>
+          } @else { 
+              <div class="brd-content-body">
+                  <div class="brd-body-scroll">
+                      <ul cdkDropList
+                        [cdkDropListData]="completedTask()"
+                        (cdkDropListDropped)="onDropItem($event)">
+
+                          @for (item of completedTask(); track item.id) {
+                              <li cdkDrag>
+                                  <app-todo-item 
+                                      [isEditTask]="false"
+                                      [taskName]="item.text">
+                                  </app-todo-item>
+                              </li>                            
+                          }
+                      </ul>   
+                  </div>
+              </div>
+          }               
+
+      </div>
+    </div>  
+  </div>
+</div>

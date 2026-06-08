@@ -1,0 +1,31 @@
+<div class="tc-main">
+
+    @for (item of toastMessage(); track item.index) {
+        <div class="tc-toast-item"
+            [class.tc-toast-item-info]="item.type === messageType.info"
+            [class.tc-toast-item-error]="item.type === messageType.error">
+
+            <div class="tc-item-content">
+                <div class="tc-item-img">
+                    <div class="tc-item-img-back">
+                        <img [ngSrc]="getImg(item.type)" [alt]="getAlt(item.type)" width="26" height="26">
+                    </div>
+                </div>
+                <div class="tc-item-text">
+                    <div class="tc-item-title">
+                        {{ item.type }}
+                    </div>
+                    <div class="tc-item-message">
+                        {{ item.message }}
+                    </div>
+                </div>
+                <div (click)="closeMessage(item.index)" (keydown.enter)="closeMessage(item.index)" tabindex="0" class="tc-item-control" role="button" aria-label="Закрыть">
+                    <img [ngSrc]="imgPath.close" alt="close" width="15" height="15">
+                </div>
+            </div>
+        </div>
+    }    
+    
+</div>
+
+

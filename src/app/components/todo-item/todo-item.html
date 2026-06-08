@@ -1,15 +1,46 @@
-<div (click)="clickTask.emit()" class="tdi-list-item" [class.tdi-list-item-select]="isSelect()">
+<div
+    [appTooltip]="'Показать детали задачи'"
+    [delayTooltip]=1000
+    [visibleTooltip]="isEditTask()"
+    tabindex="0"
+    (click)="clickTask.emit()"
+    (keydown.enter)="clickTask.emit()"
+    (dblclick)="onDblclickTask()"
+    class="tdi-list-item"
+    [class.tdi-list-item-select]="isSelect()">
+
     <div class="tdi-item-img">
         <img [ngSrc]="img.approval" alt="approval" width="52" height="26">
     </div>
-    <div class="tdi-item-text">{{ taskName() }}</div>
+
+    @if (isEdit()) {         
+        <div class="tdi-item-text tdi-item-input">
+            <input #inputField matInput [value]="taskName()" (keyup)="keypressTask($event, inputField.value)" appAutoselect>            
+        </div>        
+    } @else { 
+        <div class="tdi-item-text">{{ taskName() }}</div>
+    }
     <div class="tdi-item-actions">
-        <app-button-component 
-            tooltipText="Удаление задачи"
-            [type]="buttonType.flat"
-            [buttonImg]="img.delete" 
-            (clickButton)="onClickButton($event)">
-        </app-button-component>
+
+        @if (isEdit()) {         
+            <app-button-component 
+                tooltipText="Сохранить наименование"
+                [type]="buttonType.flat"
+                (clickButton)="onClickSave($event)">
+
+                <img [ngSrc]="img.save" alt="Сохранить наименование" width="52" height="26">
+            </app-button-component>     
+        } @else { 
+            <app-button-component 
+                tooltipText="Удаление задачи"                
+                [type]="buttonType.flat"
+                [disable]="!isEditTask()"
+                (clickButton)="onClickButton($event)">
+
+                <img [ngSrc]="img.delete" alt="Удаление задачи" width="52" height="26">
+            </app-button-component>
+        }
+
     </div>
 </div>
 
